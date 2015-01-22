@@ -162,7 +162,7 @@ endif(Boost_FOUND)
 if(DEFINED Elm_DIR)
 
 	status("Elm_DIR=${Elm_DIR}")
-	find_package(SEM REQUIRED PATHS ${SEM_DIR})
+	find_package(Elm REQUIRED PATHS ${Elm_DIR})
 	
     if(Elm_FOUND)
         list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
