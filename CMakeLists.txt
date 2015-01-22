@@ -148,49 +148,40 @@ else(Boost_FOUND)
     message(FATAL_ERROR "Failed to find Boost (or missing components). Check that \"BOOST_ROOT\" is properly set")
 endif(Boost_FOUND)
 
-# Required dependencies covered\
 # ----------------------------------------------------------------------------
-# Locate Optional dependencies: PCL
+# Elm Libraries
+# ----------------------------------------------------------------------------
+# Elm Layers desribe the SEM model and faciliatate experimentation
+# ----------------------------------------------------------------------------
+# find_package Elm
+# Defines: Elm_FOUND, Elm_INCLUDE_DIRS, Elm_LIBS
+#
+# the components we're currently interested in: all
+#
+# ----------------------------------------------------------------------------
+if(DEFINED Elm_DIR)
+
+	status("Elm_DIR=${Elm_DIR}")
+	find_package(SEM REQUIRED PATHS ${SEM_DIR})
+	
+    if(Elm_FOUND)
+        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
+        list(APPEND ${ROOT_PROJECT}_LIBS ${Elm_LIBS})
+        
+    else(Elm_FOUND)
+        message(SEND_ERROR "Failed to find Elm. Double check that \"Elm_DIR\" to the root build directory of SEM libraries.")
+    endif(Elm_FOUND)
+else(DEFINED Elm_DIR)
+    set(Elm_DIR "" CACHE PATH "Root directory for Elm build directory." )
+    message(FATAL_ERROR "\"Elm_DIR\" not set. Please provide the path to the root build directory of the Elm libraries.")
+endif(DEFINED Elm_DIR)
+
+# Required dependencies covered
+# ----------------------------------------------------------------------------
+# Locate Optional dependencies: None yet
 # ----------------------------------------------------------------------------
 
 status("Resolve Opt. Dependencies:")
-
-# ----------------------------------------------------------------------------
-# Point Cloud Library (PCL)
-# ----------------------------------------------------------------------------
-# Iterative closest point
-# ----------------------------------------------------------------------------
-# the components we're currently interested in:
-#     common
-#     io            - loading pcd files
-#     registration  - icp
-#     features      - triangulation
-#     kdtree        - triangulation
-#     surface       - triangulation
-# find_package PCL
-# Defines:
-#     PCL_FOUND:        set to 1 if PCL is found, otherwise unset
-#     PCL_INCLUDE_DIRS: set to the paths to PCL installed headers and the dependency headers
-#     PCL_LIBRARIES:    set to the file names of the built and installed PCL libraries
-#     PCL_LIBRARY_DIRS: set to the paths to where PCL libraries and 3rd party dependencies reside
-#     PCL_VERSION:      the version of the found PCL
-#     PCL_COMPONENTS:   lists all available components
-# ----------------------------------------------------------------------------
-set(WITH_PCL ON CACHE BOOL "Whether to build with PCL support.")
-
-if(WITH_PCL)
-    set(PCL_COMPONENTS_REQ common io registration features kdtree surface)
-    status("Find PCL:")
-    find_package(PCL 1.7 REQUIRED COMPONENTS ${PCL_COMPONENTS_REQ})
-    if(PCL_FOUND)   # true
-        add_definitions(-D__WITH_PCL) # Useful for conditional building of PCL dependent functionality
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${PCL_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${PCL_LIBRARIES})
-    else(PCL_FOUND) # false
-        message(FATAL_ERROR "Failed to find PCL (or missing components). Check that the library is properly installed")
-    endif(PCL_FOUND)
-    status("")
-endif(WITH_PCL)
 
 # Dependencies covered
 # ----------------------------------------------------------------------------
@@ -269,14 +260,18 @@ status("        lib Dir.:  "   Boost_FOUND THEN "${BOOST_ROOT}/lib" ELSE "-")
 set(Boost_LIB_NAMES ${Boost_LIBRARIES})
 convert_to_lib_name(Boost_LIB_NAMES ${Boost_LIB_NAMES})
 status("        components :  "      Boost_FOUND THEN ${Boost_LIB_NAMES} ELSE "-")
+status("")
+status("    Elm:    "   Elm_FOUND THEN "Yes"  ELSE NO)
+status("        lib Dir.:  "   Elm_FOUND THEN "${Elm_LIB_DIR}" ELSE "-")
+set(Elm_LIB_NAMES ${Boost_LIBRARIES})
+convert_to_lib_name(Elm_LIB_NAMES ${Elm_LIB_NAMES})
+status("        components :  "      Elm_FOUND THEN ${Elm_LIB_NAMES} ELSE "-")
 
 status("")
 
 status("Optional Dependencies:")
 status("")
-status("    PCL:  "   PCL_FOUND THEN YES (${PCL_VERSION}) ELSE NO)
-status("        lib Dir.:  "      PCL_FOUND THEN "${PCL_LIBRARY_DIRS}" ELSE "-")
-status("        components.:  "   PCL_FOUND THEN "${PCL_COMPONENTS_REQ}" ELSE "-")
+status("    None")
 
 status("")
 
