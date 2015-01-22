@@ -42,7 +42,7 @@ You'll need to set up the following dependencies.You can build them from source 
 * [OpenCV](http://opencv.org/), version 2.4.x or later
 * [Google Test framework](https://code.google.com/p/googletest/) (gtest), version 1.7 or later
 * [Boost Libraries](http://www.boost.org/), version 1.54.0 or later (components used: system, filesystem)
-  
+* Elm Libraries
   
 Configure and Build:
   
@@ -55,9 +55,9 @@ Example cmake configuration command if dependencies are install in the usual sys
   
 Example cmake configuration command for when dependencies are in custom paths, or if you want to link against dependencies other than those installed under the usual system paths:
   
-    cmake -DGTEST_ROOT=<gtest build dir> -DOpenCV_DIR=<opencv build dir> -DBOOST_ROOT=<boost build dir> -DBoost_NO_SYSTEM_PATHS=ON $SRC_DIR/sem
+    cmake -DGTEST_ROOT=<gtest build dir> -DOpenCV_DIR=<opencv build dir> -DBOOST_ROOT=<boost build dir> -DBoost_NO_SYSTEM_PATHS=ON -DElm_DIR=<Elm build dir> $SRC_DIR/sem
   
-    cmake -DGTEST_ROOT=~/src/gtest-1.7.0 -DOpenCV_DIR=~/build/opencv/share/ -DBOOST_ROOT=~/build/boost/boost_1_57_0/ -DBoost_NO_SYSTEM_PATHS=ON $SRC_DIR/sem
+    cmake -DGTEST_ROOT=~/src/gtest-1.7.0 -DOpenCV_DIR=~/build/opencv/share/ -DBOOST_ROOT=~/build/boost/boost_1_57_0/ -DBoost_NO_SYSTEM_PATHS=ON -DElm_DIR=~/build/elm/ $SRC_DIR/sem
 
 * How to run tests
 Build the run_unittests target and running the resulting executable binary runs the tests. Running the binary in a terminal displays test results.
