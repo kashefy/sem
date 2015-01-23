@@ -220,15 +220,11 @@ endif(BUILD_TESTS)
 # Copy instructions
 #----------------------------------------------------------------------------
 
-file(COPY ${${ROOT_PROJECT}_CONFIG} DESTINATION ${CMAKE_BINARY_DIR})
-
 
 
 #----------------------------------------------------------------------------
 # installation targets that aren't already performed on the module level
 #----------------------------------------------------------------------------
-
-install(FILES ${${ROOT_PROJECT}_CONFIG} DESTINATION share/${ROOT_PROJECT}/)
 
 
 # ----------------------------------------------------------------------------
