@@ -36,8 +36,8 @@ public:
      * @throws ExceptionTypeError on unrecognized layer type
      */
     static std::shared_ptr<base_Layer> CreateShared(const LayerType &type,
-                                                        const LayerConfig &config,
-                                                        const LayerIONames &io);
+                                                    const LayerConfig &config,
+                                                    const LayerIONames &io);
 };
 
 #endif // SEM_LAYERFACTORY_H_
