@@ -28,12 +28,10 @@ typedef Registor_<base_Layer>::Registry LayerRegistry;
 
 LayerRegistry g_layerRegistry = map_list_of
         LAYER_REGISTRY_PAIR( AttentionWindow )
-        LAYER_REGISTRY_PAIR( ICP )
         LAYER_REGISTRY_PAIR( LayerY )
         LAYER_REGISTRY_PAIR( LayerZ )
         LAYER_REGISTRY_PAIR( MutexPopulationCode )
         LAYER_REGISTRY_PAIR( SaliencyItti )
-        LAYER_REGISTRY_PAIR( Triangulation )
         LAYER_REGISTRY_PAIR( WeightedSum )
         ; ///< <-- add new layer to registry here
 

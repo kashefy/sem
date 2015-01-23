@@ -1,8 +1,8 @@
 #ifndef SEM_NEURON_ZNEURON_H_
 #define SEM_NEURON_ZNEURON_H_
 
-#include "sem/neuron/base_learner.h"
-#include "sem/neuron/spikinghistory.h"
+#include "elm/neuron/base_learner.h"
+#include "elm/neuron/spikinghistory.h"
 
 /**
  * @brief Integrate and fire neuron
