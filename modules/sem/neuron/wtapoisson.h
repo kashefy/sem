@@ -1,7 +1,7 @@
 #ifndef SEM_NEURON_WTAPOISSON_H_
 #define SEM_NEURON_WTAPOISSON_H_
 
-#include "sem/neuron/competition.h"
+#include "elm/neuron/competition.h"
 
 /** WTA circuit allowing learner neurons to fire a given Poisson-rate
  * At the time of a spike, a WTA competition for firing

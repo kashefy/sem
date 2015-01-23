@@ -1,7 +1,7 @@
 #include "sem/neuron/wtapoisson.h"
 
-#include "sem/core/exception.h"
-#include "sem/core/sampler.h"
+#include "elm/core/exception.h"
+#include "elm/core/sampler.h"
 
 using namespace std;
 using namespace cv;
@@ -44,7 +44,7 @@ Mat WTAPoisson::Compete(vector<shared_ptr<base_Learner> > &learners)
     return winners > 0;
 }
 
-cv::Mat WTAPoisson::LearnerStateDistr(const std::vector<std::shared_ptr<base_Learner> > &learners) const
+Mat WTAPoisson::LearnerStateDistr(const vector<shared_ptr<base_Learner> > &learners) const
 {
     int nb_learners = static_cast<int>(learners.size());
 

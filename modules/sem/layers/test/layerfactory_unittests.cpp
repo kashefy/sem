@@ -1,8 +1,8 @@
 #include "sem/layers/layerfactory.h"
 
-#include "sem/core/exception.h"
-#include "sem/core/layerconfig.h"
-#include "sem/core/signal.h"
+#include "elm/core/exception.h"
+#include "elm/core/layerconfig.h"
+#include "elm/core/signal.h"
 #include "sem/layers/saliencyitti.h" ///< to have layer dervied classes to test with
 #include "sem/layers/weightedsum.h"  ///< to have layer dervied classes to test with
 #include "sem/ts/ts.h"

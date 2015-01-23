@@ -165,6 +165,7 @@ if(DEFINED Elm_DIR)
 	find_package(Elm REQUIRED PATHS ${Elm_DIR})
 	
     if(Elm_FOUND)
+    status(${Elm_INCLUDE_DIRS})
         list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
         list(APPEND ${ROOT_PROJECT}_LIBS ${Elm_LIBS})
         
