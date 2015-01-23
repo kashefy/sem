@@ -12,12 +12,12 @@
  * Such as instantiation and sequencing of multiple layer applications (e.g. pipeline)
  * @todo enable post hoc addition of custom layer instances
  */
-class LayerFactory
+class LayerFactorySEM
 {
 public:
     typedef std::string LayerType;
 
-    LayerFactory();
+    LayerFactorySEM();
 
     /**
      * @brief Create smart pointer to an instantiated layer
@@ -36,8 +36,8 @@ public:
      * @throws ExceptionTypeError on unrecognized layer type
      */
     static std::shared_ptr<base_Layer> CreateShared(const LayerType &type,
-                                                            const LayerConfig &config,
-                                                            const LayerIONames &io);
+                                                        const LayerConfig &config,
+                                                        const LayerIONames &io);
 };
 
 #endif // SEM_LAYERFACTORY_H_

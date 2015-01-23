@@ -35,20 +35,20 @@ LayerRegistry g_layerRegistry = map_list_of
         LAYER_REGISTRY_PAIR( WeightedSum )
         ; ///< <-- add new layer to registry here
 
-LayerFactory::LayerFactory()
+LayerFactorySEM::LayerFactorySEM()
 {
 }
 
-LayerRegistor::RegisteredTypeSharedPtr LayerFactory::CreateShared(const LayerType &type)
+LayerRegistor::RegisteredTypeSharedPtr LayerFactorySEM::CreateShared(const LayerType &type)
 {
     return LayerRegistor::CreatePtrShared(g_layerRegistry, type);
 }
 
-LayerRegistor::RegisteredTypeSharedPtr LayerFactory::CreateShared(const LayerType &type,
+LayerRegistor::RegisteredTypeSharedPtr LayerFactorySEM::CreateShared(const LayerType &type,
                                                                           const LayerConfig &config,
                                                                           const LayerIONames &io)
 {
-    LayerRegistor::RegisteredTypeSharedPtr ptr = LayerFactory::CreateShared(type);
+    LayerRegistor::RegisteredTypeSharedPtr ptr = LayerFactorySEM::CreateShared(type);
     ptr->Reset(config);
     ptr->IONames(io);
     return ptr;
