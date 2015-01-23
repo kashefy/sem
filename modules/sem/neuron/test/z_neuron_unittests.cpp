@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "sem/ts/ts.h"
-#include "sem/ts/fakeevidence.h"
+#include "elm/ts/ts.h"
+#include "elm/ts/fakeevidence.h"
 
 using namespace cv;
 

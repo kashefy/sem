@@ -3,9 +3,9 @@
 #include "elm/core/exception.h"
 #include "elm/core/layerconfig.h"
 #include "elm/core/signal.h"
-#include "sem/layers/saliencyitti.h" ///< to have layer dervied classes to test with
-#include "sem/layers/weightedsum.h"  ///< to have layer dervied classes to test with
-#include "sem/ts/ts.h"
+#include "elm/layers/saliencyitti.h" ///< to have layer dervied classes to test with
+#include "elm/layers/weightedsum.h"  ///< to have layer dervied classes to test with
+#include "elm/ts/ts.h"
 
 using std::shared_ptr;
 
@@ -32,7 +32,7 @@ TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared)
 
 TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_WrongType)
 {
-    EXPECT_THROW(LayerFactory::CreateShared("Blahbla"), sem::ExceptionTypeError);
+    EXPECT_THROW(LayerFactory::CreateShared("Blahbla"), elm::ExceptionTypeError);
 }
 
 TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_UniqueInstancesSameType)
