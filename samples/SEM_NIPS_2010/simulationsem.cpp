@@ -8,10 +8,10 @@
 
 #include "elm/core/signal.h"
 #include "elm/core/cv/mat_utils.h"
-#include "sem/encoding/populationcode.h"
-#include "sem/io/readmnist.h"
+#include "elm/encoding/populationcode.h"
+#include "elm/io/readmnist.h"
+#include "elm/layers/layer_y.h"
 #include "sem/layers/layerfactory.h"
-#include "sem/layers/layer_y.h"
 #include "sem/layers/layer_z.h"
 
 using namespace cv;
