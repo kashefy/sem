@@ -260,7 +260,7 @@ status("        components :  "      Boost_FOUND THEN ${Boost_LIB_NAMES} ELSE "-
 status("")
 status("    Elm:    "   Elm_FOUND THEN "Yes"  ELSE NO)
 status("        lib Dir.:  "   Elm_FOUND THEN "${Elm_LIB_DIR}" ELSE "-")
-set(Elm_LIB_NAMES ${Boost_LIBRARIES})
+set(Elm_LIB_NAMES ${Elm_LIBS})
 convert_to_lib_name(Elm_LIB_NAMES ${Elm_LIB_NAMES})
 status("        components :  "      Elm_FOUND THEN ${Elm_LIB_NAMES} ELSE "-")
 
