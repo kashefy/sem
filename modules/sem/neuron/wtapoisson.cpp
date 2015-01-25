@@ -1,7 +1,7 @@
 #include "sem/neuron/wtapoisson.h"
 
-#include "sem/core/exception.h"
-#include "sem/core/sampler.h"
+#include "elm/core/exception.h"
+#include "elm/core/sampler.h"
 
 using namespace std;
 using namespace cv;
@@ -15,7 +15,7 @@ WTAPoisson::WTAPoisson(float max_frequency, float delta_t_msec)
 
 void WTAPoisson::NextSpikeTime()
 {
-    next_spike_time_sec_ = sem::randexp(lambda_);
+    next_spike_time_sec_ = elm::randexp(lambda_);
 }
 
 Mat WTAPoisson::Compete(vector<shared_ptr<base_Learner> > &learners)
@@ -44,13 +44,13 @@ Mat WTAPoisson::Compete(vector<shared_ptr<base_Learner> > &learners)
     return winners > 0;
 }
 
-cv::Mat WTAPoisson::LearnerStateDistr(const std::vector<std::shared_ptr<base_Learner> > &learners) const
+Mat WTAPoisson::LearnerStateDistr(const vector<shared_ptr<base_Learner> > &learners) const
 {
     int nb_learners = static_cast<int>(learners.size());
 
     if(nb_learners < 1) {
 
-        SEM_THROW_BAD_DIMS("Learner vector is empty.");
+        ELM_THROW_BAD_DIMS("Learner vector is empty.");
     }
 
     Mat1f u(1, nb_learners);

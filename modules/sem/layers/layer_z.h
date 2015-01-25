@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "sem/core/base_Layer.h"
-#include "sem/core/layerconfig.h"   // OptS member definition
+#include "elm/core/base_Layer.h"
+#include "elm/core/layerconfig.h"   // OptS member definition
 #include "sem/neuron/zneuron.h"
 #include "sem/neuron/wtapoisson.h"
 

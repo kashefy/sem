@@ -1,12 +1,12 @@
 #include "sem/neuron/wtapoisson.h"
 
-#include "sem/core/exception.h"
+#include "elm/core/exception.h"
 #include "sem/neuron/zneuron.h"
-#include "sem/ts/ts.h"
+#include "elm/ts/ts.h"
 
 using namespace std;
 using namespace cv;
-using namespace sem;
+using namespace elm;
 
 class WTAPoissonTest : public testing::Test
 {

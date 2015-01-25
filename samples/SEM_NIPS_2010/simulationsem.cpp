@@ -6,12 +6,12 @@
 
 #include <opencv2/highgui.hpp>
 
-#include "sem/core/signal.h"
-#include "sem/core/cv/mat_utils.h"
-#include "sem/encoding/populationcode.h"
-#include "sem/io/readmnist.h"
+#include "elm/core/signal.h"
+#include "elm/core/cv/mat_utils.h"
+#include "elm/encoding/populationcode.h"
+#include "elm/io/readmnist.h"
+#include "elm/layers/layer_y.h"
 #include "sem/layers/layerfactory.h"
-#include "sem/layers/layer_y.h"
 #include "sem/layers/layer_z.h"
 
 using namespace cv;
@@ -112,7 +112,7 @@ shared_ptr<base_Layer> SimulationSEM::InitPopulationCode() const
     cfg.Input(MutexPopulationCode::KEY_INPUT_STIMULUS, NAME_STIMULUS);
     cfg.Output(MutexPopulationCode::KEY_OUTPUT_POP_CODE, NAME_POP_CODE);
 
-    return LayerFactory::CreateShared("MutexPopulationCode", cfg, cfg);
+    return LayerFactorySEM::CreateShared("MutexPopulationCode", cfg, cfg);
 }
 
 shared_ptr<base_Layer> SimulationSEM::InitLayerY() const
@@ -128,7 +128,7 @@ shared_ptr<base_Layer> SimulationSEM::InitLayerY() const
     io.Input(LayerY::KEY_INPUT_STIMULUS, NAME_POP_CODE);
     io.Output(LayerY::KEY_OUTPUT_SPIKES, NAME_SPIKES_Y);
 
-    return LayerFactory::CreateShared("LayerY", cfg, io);
+    return LayerFactorySEM::CreateShared("LayerY", cfg, io);
 }
 
 shared_ptr<base_Layer> SimulationSEM::InitLearners(int nb_features, int history_length) const
@@ -144,7 +144,7 @@ shared_ptr<base_Layer> SimulationSEM::InitLearners(int nb_features, int history_
     cfg.Output(LayerZ::KEY_OUTPUT_SPIKES, NAME_SPIKES_Z);
     cfg.Output(LayerZ::KEY_OUTPUT_WEIGHTS, NAME_WEIGHTS);
 
-    return LayerFactory::CreateShared("LayerZ", cfg, cfg);
+    return LayerFactorySEM::CreateShared("LayerZ", cfg, cfg);
 }
 
 void SimulationSEM::VisualizeOnOffWeights(const Mat1f &weights)
@@ -165,8 +165,8 @@ void SimulationSEM::VisualizeOnOffWeights(const Mat1f &weights)
         //cout<<w_on.t()<<endl;
         //cout<<w_off.t()<<endl;
 
-        imshow("on", sem::ConvertTo8U(w_on).reshape(1, 28));
-        imshow("off", sem::ConvertTo8U(w_off).reshape(1, 28));
+        imshow("on", elm::ConvertTo8U(w_on).reshape(1, 28));
+        imshow("off", elm::ConvertTo8U(w_off).reshape(1, 28));
         waitKey();
     }
 }

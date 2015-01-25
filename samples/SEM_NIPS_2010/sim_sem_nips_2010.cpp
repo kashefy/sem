@@ -2,14 +2,14 @@
  */
 #include <iostream>
 
-#include "sem/core/core.h"
+#include "elm/core/core.h"
 #include "simulationsem.h"
 
 using namespace std;
 
 int main() {
 
-    cout<<sem::GetVersion()<<endl;
+    cout<<elm::GetVersion()<<endl;
 
     SimulationSEM s;
 
