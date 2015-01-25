@@ -88,6 +88,32 @@ if(BUILD_TESTS)
 endif(BUILD_TESTS)
 
 # ----------------------------------------------------------------------------
+# Elm Libraries (must preceed OpenCV)
+# ----------------------------------------------------------------------------
+# Elm Layers desribe the SEM model and faciliatate experimentation
+# ----------------------------------------------------------------------------
+# find_package Elm
+# Defines: Elm_FOUND, Elm_INCLUDE_DIRS, Elm_LIBS
+#
+# the components we're currently interested in: all
+#
+# ----------------------------------------------------------------------------
+if(DEFINED Elm_DIR)
+    status("Elm_DIR=${Elm_DIR}")
+    find_package(Elm REQUIRED PATHS ${Elm_DIR})
+    if(Elm_FOUND)
+        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
+        list(APPEND ${ROOT_PROJECT}_LIBS ${Elm_LIBS})
+        add_definitions(-D__WITH_PCL) # Useful for conditional building of PCL dependent functionality
+    else(Elm_FOUND)
+        message(SEND_ERROR "Failed to find Elm. Double check that \"Elm_DIR\" to the root build directory of SEM libraries.")
+    endif(Elm_FOUND)
+else(DEFINED Elm_DIR)
+    set(Elm_DIR "" CACHE PATH "Root directory for Elm build directory." )
+    message(FATAL_ERROR "\"Elm_DIR\" not set. Please provide the path to the root build directory of the Elm libraries.")
+endif(DEFINED Elm_DIR)
+
+# ----------------------------------------------------------------------------
 # OpenCV
 # ----------------------------------------------------------------------------
 # Matrix definitions operations
@@ -147,35 +173,6 @@ else(Boost_FOUND)
     endif(NOT DEFINED BOOST_ROOT)
     message(FATAL_ERROR "Failed to find Boost (or missing components). Check that \"BOOST_ROOT\" is properly set")
 endif(Boost_FOUND)
-
-# ----------------------------------------------------------------------------
-# Elm Libraries
-# ----------------------------------------------------------------------------
-# Elm Layers desribe the SEM model and faciliatate experimentation
-# ----------------------------------------------------------------------------
-# find_package Elm
-# Defines: Elm_FOUND, Elm_INCLUDE_DIRS, Elm_LIBS
-#
-# the components we're currently interested in: all
-#
-# ----------------------------------------------------------------------------
-if(DEFINED Elm_DIR)
-
-	status("Elm_DIR=${Elm_DIR}")
-	find_package(Elm REQUIRED PATHS ${Elm_DIR})
-	
-    if(Elm_FOUND)
-    status(${Elm_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${Elm_LIBS})
-        
-    else(Elm_FOUND)
-        message(SEND_ERROR "Failed to find Elm. Double check that \"Elm_DIR\" to the root build directory of SEM libraries.")
-    endif(Elm_FOUND)
-else(DEFINED Elm_DIR)
-    set(Elm_DIR "" CACHE PATH "Root directory for Elm build directory." )
-    message(FATAL_ERROR "\"Elm_DIR\" not set. Please provide the path to the root build directory of the Elm libraries.")
-endif(DEFINED Elm_DIR)
 
 # Required dependencies covered
 # ----------------------------------------------------------------------------
