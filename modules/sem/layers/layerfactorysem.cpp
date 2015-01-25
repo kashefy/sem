@@ -1,4 +1,4 @@
-#include "sem/layers/layerfactory.h"
+#include "sem/layers/layerfactorysem.h"
 
 #include <boost/assign/list_of.hpp>
 

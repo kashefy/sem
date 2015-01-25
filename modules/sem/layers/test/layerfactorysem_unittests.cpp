@@ -1,10 +1,10 @@
-#include "sem/layers/layerfactory.h"
+#include "sem/layers/layerfactorysem.h"
 
 #include "elm/core/exception.h"
 #include "elm/core/layerconfig.h"
 #include "elm/core/signal.h"
-#include "elm/layers/saliencyitti.h" ///< to have layer dervied classes to test with
-#include "elm/layers/weightedsum.h"  ///< to have layer dervied classes to test with
+#include "elm/layers/saliencyitti.h" ///< to have layer dervied classes to test with, sem layer
+#include "elm/layers/weightedsum.h"  ///< to have layer dervied classes to test with, elm layer
 #include "elm/ts/ts.h"
 
 using std::shared_ptr;
@@ -14,11 +14,11 @@ namespace {
 /**
  * @brief class or testing LayerFactory's static methods
  */
-class LayerFactoryStaticTest : public ::testing::Test
+class LayerFactorySEMStaticTest : public ::testing::Test
 {
 };
 
-TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared)
+TEST_F(LayerFactorySEMStaticTest, CreateLayerPtrShared)
 {
     {
         shared_ptr<base_Layer> ptr = LayerFactorySEM::CreateShared("LayerZ");
@@ -30,12 +30,12 @@ TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared)
     }
 }
 
-TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_WrongType)
+TEST_F(LayerFactorySEMStaticTest, CreateLayerPtrShared_WrongType)
 {
     EXPECT_THROW(LayerFactorySEM::CreateShared("Blahbla"), elm::ExceptionTypeError);
 }
 
-TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_UniqueInstancesSameType)
+TEST_F(LayerFactorySEMStaticTest, CreateLayerPtrShared_UniqueInstancesSameType)
 {
     const std::string TYPE="WeightedSum";
 
@@ -45,7 +45,7 @@ TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_UniqueInstancesSameType)
     EXPECT_NE(ptr1, ptr2);
 }
 
-TEST_F(LayerFactoryStaticTest, CreateLayerPtrShared_WithConfig)
+TEST_F(LayerFactorySEMStaticTest, CreateLayerPtrShared_WithConfig)
 {
     PTree params;
     params.put(WeightedSum::PARAM_A, 0.2f);
