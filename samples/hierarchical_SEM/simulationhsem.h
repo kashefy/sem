@@ -13,6 +13,7 @@
 /**
  * @brief class for simulating hierarchical spike-based Expectation Maximization
  * An extension of the SEM algorithm as seen in @cite Nessler2010
+ * @todo complete implementation
  */
 class SimulationHSEM
 {
@@ -34,18 +35,18 @@ protected:
     static const std::string NAME_WEIGHTS;
 
     // methods
-    std::shared_ptr<base_Layer> InitPopulationCode() const;
+    std::shared_ptr<elm::base_Layer> InitPopulationCode() const;
 
-    std::shared_ptr<base_Layer> InitLayerY() const;
+    std::shared_ptr<elm::base_Layer> InitLayerY() const;
 
-    std::shared_ptr<base_Layer> InitLearners(int nb_features, int history_length) const;
+    std::shared_ptr<elm::base_Layer> InitLearners(int nb_features, int history_length) const;
 
     void VisualizeOnOffWeights(const cv::Mat1f &weights);
 
     // members
-    std::shared_ptr<base_Layer> pop_code_;
-    std::shared_ptr<base_Layer> y_;
-    std::shared_ptr<base_Layer> z_;
+    std::shared_ptr<elm::base_Layer> pop_code_;
+    std::shared_ptr<elm::base_Layer> y_;
+    std::shared_ptr<elm::base_Layer> z_;
     size_t nb_learners_;   ///< no. of learners (e.g. ZNeuron)
 
 };

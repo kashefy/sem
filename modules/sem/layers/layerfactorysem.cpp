@@ -17,6 +17,8 @@
 
 using boost::assign::map_list_of;
 
+using namespace elm;
+
 typedef Registor_<base_Layer> LayerRegistor;
 typedef Registor_<base_Layer>::Registry LayerRegistry;
 

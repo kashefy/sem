@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "elm/core/base_Layer.h"
 #include "elm/core/layerconfig.h"   // OptS member definition
+#include "elm/layers/base_layer_derivations/base_LearningLayer.h"
 #include "sem/neuron/zneuron.h"
 #include "sem/neuron/wtapoisson.h"
 
@@ -15,7 +15,7 @@
  *
  * @cite Nessler2010
  */
-class LayerZ : public base_LearningLayer
+class LayerZ : public elm::base_LearningLayer
 {
 public:
     // I/O keys
@@ -41,24 +41,26 @@ public:
 
     LayerZ();
 
-    LayerZ(const LayerConfig& config);
+    LayerZ(const elm::LayerConfig& config);
 
     void Clear();
 
-    void Reset(const LayerConfig &config);
+    void Reset(const elm::LayerConfig &config);
 
-    void Reconfigure(const LayerConfig &config);
+    void Reconfigure(const elm::LayerConfig &config);
 
-    virtual void IONames(const LayerIONames& config);
+    virtual void InputNames(const elm::LayerInputNames& in_names);
 
-    void Activate(const Signal &signal);
+    virtual void OutputNames(const elm::LayerOutputNames& out_names);
+
+    void Activate(const elm::Signal &signal);
 
     /**
      * @brief Apply STDP for learning from most recent stimuli
      */
     void Learn();
 
-    void Response(Signal &signal);
+    void Response(elm::Signal &signal);
 
 protected:
     typedef std::vector<std::shared_ptr<base_Learner> > VecLPtr; ///< vector typedef convinience
@@ -72,9 +74,9 @@ protected:
 
     std::string name_input_spikes_;     ///< name of input spikes in signal object
     std::string name_output_spikes_;    ///< destination of output spikes in signal object
-    OptS name_output_mem_pot_;          ///< optional destination of membrane potential in signal object
-    OptS name_output_weights_;          ///< optional destination of neuron weights in signal object
-    OptS name_output_bias_;             ///< optional destination of neuron bias in signal object, not the same as weights[0]
+    elm::OptS name_output_mem_pot_;          ///< optional destination of membrane potential in signal object
+    elm::OptS name_output_weights_;          ///< optional destination of neuron weights in signal object
+    elm::OptS name_output_bias_;             ///< optional destination of neuron bias in signal object, not the same as weights[0]
 
     int nb_afferents_;                  ///< number of afferents to this layer
 

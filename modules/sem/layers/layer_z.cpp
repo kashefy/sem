@@ -1,12 +1,13 @@
 #include "sem/layers/layer_z.h"
 
-#include <iostream>
-
 #include "elm/core/exception.h"
+#include "elm/core/layerionames.h"
+#include "elm/core/inputname.h"
 #include "elm/core/signal.h"
 
 using std::shared_ptr;
 using cv::Mat1f;
+using namespace elm;
 
 // I/O keys
 const std::string LayerZ::KEY_INPUT_SPIKES          = "spikes_in";
@@ -102,18 +103,22 @@ void LayerZ::Reconfigure(const LayerConfig &config)
     ELM_THROW_NOT_IMPLEMENTED;
 }
 
-void LayerZ::IONames(const LayerIONames &config)
+void LayerZ::InputNames(const LayerInputNames &in_names)
 {
-    name_input_spikes_   = config.Input(KEY_INPUT_SPIKES);
-    name_output_spikes_  = config.Output(KEY_OUTPUT_SPIKES);
-    name_output_mem_pot_ = config.OutputOpt(KEY_OUTPUT_MEMBRANE_POT);
-    name_output_weights_ = config.OutputOpt(KEY_OUTPUT_WEIGHTS);
-    name_output_bias_ = config.OutputOpt(KEY_OUTPUT_BIAS);
+    name_input_spikes_   = in_names.Input(KEY_INPUT_SPIKES);
+}
+
+void LayerZ::OutputNames(const LayerOutputNames &out_names)
+{
+    name_output_spikes_     = out_names.Output(KEY_OUTPUT_SPIKES);
+    name_output_mem_pot_    = out_names.OutputOpt(KEY_OUTPUT_MEMBRANE_POT);
+    name_output_weights_    = out_names.OutputOpt(KEY_OUTPUT_WEIGHTS);
+    name_output_bias_       = out_names.OutputOpt(KEY_OUTPUT_BIAS);
 }
 
 void LayerZ::Activate(const Signal &signal)
 {
-    cv::Mat1f spikes_in = signal.MostRecentMat(name_input_spikes_);
+    cv::Mat1f spikes_in = signal.MostRecentMat1f(name_input_spikes_);
     if(spikes_in.total() != static_cast<size_t>(nb_afferents_)) {
 
         std::stringstream s;

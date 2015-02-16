@@ -11,12 +11,13 @@
 #include "elm/encoding/populationcode.h"
 #include "elm/io/readmnist.h"
 #include "elm/layers/layer_y.h"
-#include "sem/layers/layerfactory.h"
+#include "sem/layers/layerfactorysem.h"
 #include "sem/layers/layer_z.h"
 
 using namespace cv;
 using namespace std;
 namespace bfs=boost::filesystem;
+using namespace elm;
 
 const string SimulationSEM::NAME_STIMULUS  = "stimulus";
 const string SimulationSEM::NAME_POP_CODE  = "pc";
@@ -61,7 +62,7 @@ void SimulationSEM::Learn()
 
             if(!z_) {
 
-                z_ = InitLearners(static_cast<int>(sig.MostRecentMat(NAME_SPIKES_Y).total()), 10);
+                z_ = InitLearners(static_cast<int>(sig.MostRecentMat1f(NAME_SPIKES_Y).total()), 10);
             }
 
             z_->Activate(sig);
@@ -103,7 +104,7 @@ void SimulationSEM::Eval()
 {
     Signal signal;
     z_->Response(signal);
-    SimulationSEM::VisualizeOnOffWeights(signal.MostRecentMat(NAME_WEIGHTS));
+    SimulationSEM::VisualizeOnOffWeights(signal.MostRecentMat1f(NAME_WEIGHTS));
 }
 
 shared_ptr<base_Layer> SimulationSEM::InitPopulationCode() const
@@ -126,7 +127,7 @@ shared_ptr<base_Layer> SimulationSEM::InitLayerY() const
 
     LayerIONames io;
     io.Input(LayerY::KEY_INPUT_STIMULUS, NAME_POP_CODE);
-    io.Output(LayerY::KEY_OUTPUT_SPIKES, NAME_SPIKES_Y);
+    io.Output(LayerY::KEY_OUTPUT_RESPONSE, NAME_SPIKES_Y);
 
     return LayerFactorySEM::CreateShared("LayerY", cfg, io);
 }

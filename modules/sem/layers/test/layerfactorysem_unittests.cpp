@@ -8,6 +8,7 @@
 #include "elm/ts/ts.h"
 
 using std::shared_ptr;
+using namespace elm;
 
 namespace {
 
@@ -74,8 +75,8 @@ TEST_F(LayerFactorySEMStaticTest, CreateLayerPtrShared_WithConfig)
 
     // check response
     EXPECT_TRUE(signal.Exists(NAME_RESPONSE));
-    EXPECT_MAT_DIMS_EQ(signal.MostRecentMat(NAME_RESPONSE), cv::Size2i(1, 1));
-    EXPECT_FLOAT_EQ(signal.MostRecentMat(NAME_RESPONSE).at<float>(0), 0.5f);
+    EXPECT_MAT_DIMS_EQ(signal.MostRecentMat1f(NAME_RESPONSE), cv::Size2i(1, 1));
+    EXPECT_FLOAT_EQ(signal.MostRecentMat1f(NAME_RESPONSE).at<float>(0), 0.5f);
 }
 
 } // annonymous namespace
