@@ -88,30 +88,30 @@ if(BUILD_TESTS)
 endif(BUILD_TESTS)
 
 # ----------------------------------------------------------------------------
-# Elm Libraries (must preceed OpenCV)
+# ELM Libraries (must preceed OpenCV)
 # ----------------------------------------------------------------------------
-# Elm Layers desribe the SEM model and faciliatate experimentation
+# ELM Layers desribe the SEM model and faciliatate experimentation
 # ----------------------------------------------------------------------------
-# find_package Elm
-# Defines: Elm_FOUND, Elm_INCLUDE_DIRS, Elm_LIBS
+# find_package ELM
+# Defines: ELM_FOUND, ELM_INCLUDE_DIRS, ELM_LIBS
 #
 # the components we're currently interested in: all
 #
 # ----------------------------------------------------------------------------
-if(DEFINED Elm_DIR)
-    status("Elm_DIR=${Elm_DIR}")
-    find_package(Elm REQUIRED PATHS ${Elm_DIR})
-    if(Elm_FOUND)
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Elm_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${Elm_LIBS})
+if(DEFINED ELM_DIR)
+    status("ELM_DIR=${ELM_DIR}")
+    find_package(ELM REQUIRED PATHS ${ELM_DIR})
+    if(ELM_FOUND)
+        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${ELM_INCLUDE_DIRS})
+        list(APPEND ${ROOT_PROJECT}_LIBS ${ELM_LIBS})
         add_definitions(-D__WITH_PCL) # Useful for conditional building of PCL dependent functionality
-    else(Elm_FOUND)
-        message(SEND_ERROR "Failed to find Elm. Double check that \"Elm_DIR\" to the root build directory of SEM libraries.")
-    endif(Elm_FOUND)
-else(DEFINED Elm_DIR)
-    set(Elm_DIR "" CACHE PATH "Root directory for Elm build directory." )
-    message(FATAL_ERROR "\"Elm_DIR\" not set. Please provide the path to the root build directory of the Elm libraries.")
-endif(DEFINED Elm_DIR)
+    else(ELM_FOUND)
+        message(SEND_ERROR "Failed to find ELM. Double check that \"ELM_DIR\" to the root build directory of SEM libraries.")
+    endif(ELM_FOUND)
+else(DEFINED ELM_DIR)
+    set(ELM_DIR "" CACHE PATH "Root directory for ELM build directory." )
+    message(FATAL_ERROR "\"ELM_DIR\" not set. Please provide the path to the root build directory of the ELM libraries.")
+endif(DEFINED ELM_DIR)
 
 # ----------------------------------------------------------------------------
 # OpenCV
@@ -158,7 +158,7 @@ endif(DEFINED OpenCV_DIR)
 # ----------------------------------------------------------------------------
 # Force the user to tell us which OpenCV they want (otherwise find_package can find the wrong one, cache it and changes to OpenCV_DIR are ignored)
 
-set(BOOST_MIN_VERSION "1.56.0" CACHE STRING "Minimum version of boost to link against (e.g. C:/BOOST_1_56_0 is 1.56.0")
+set(BOOST_MIN_VERSION "1.46.0" CACHE STRING "Minimum version of boost to link against (e.g. C:/BOOST_1_56_0 is 1.56.0")
 
 # Don't forget to include 'system'
 set(BOOST_COMPONENTS system filesystem serialization)
@@ -255,11 +255,11 @@ set(Boost_LIB_NAMES ${Boost_LIBRARIES})
 convert_to_lib_name(Boost_LIB_NAMES ${Boost_LIB_NAMES})
 status("        components :  "      Boost_FOUND THEN ${Boost_LIB_NAMES} ELSE "-")
 status("")
-status("    Elm:    "   Elm_FOUND THEN "Yes"  ELSE NO)
-status("        lib Dir.:  "   Elm_FOUND THEN "${Elm_LIB_DIR}" ELSE "-")
-set(Elm_LIB_NAMES ${Elm_LIBS})
-convert_to_lib_name(Elm_LIB_NAMES ${Elm_LIB_NAMES})
-status("        components :  "      Elm_FOUND THEN ${Elm_LIB_NAMES} ELSE "-")
+status("    ELM:    "   ELM_FOUND THEN "Yes"  ELSE NO)
+status("        lib Dir.:  "   ELM_FOUND THEN "${ELM_LIB_DIR}" ELSE "-")
+set(ELM_LIB_NAMES ${ELM_LIBS})
+convert_to_lib_name(ELM_LIB_NAMES ${ELM_LIB_NAMES})
+status("        components :  "      ELM_FOUND THEN ${ELM_LIB_NAMES} ELSE "-")
 
 status("")
 
