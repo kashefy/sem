@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "elm/core/layerconfig.h"   // OptS member definition
-#include "elm/layers/base_layer_derivations/base_LearningLayer.h"
+#include "elm/layers/layers_interim/base_LearningLayer.h"
 #include "sem/neuron/zneuron.h"
 #include "sem/neuron/wtapoisson.h"
 

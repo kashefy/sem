@@ -10,7 +10,7 @@
  */
 #include "elm/layers/attentionwindow.h"
 #include "elm/layers/layer_y.h"
-#include "elm/encoding/populationcode.h"
+#include "elm/encoding/populationcode_derivs/mutex_populationcode.h"
 #include "elm/layers/saliencyitti.h"
 #include "elm/layers/weightedsum.h"
 #include "sem/layers/layer_z.h"

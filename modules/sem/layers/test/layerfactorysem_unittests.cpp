@@ -1,6 +1,7 @@
 #include "sem/layers/layerfactorysem.h"
 
 #include "elm/core/exception.h"
+#include "elm/core/inputname.h"
 #include "elm/core/layerconfig.h"
 #include "elm/core/signal.h"
 #include "elm/layers/saliencyitti.h" ///< to have layer dervied classes to test with, sem layer

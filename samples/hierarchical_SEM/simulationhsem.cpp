@@ -4,11 +4,12 @@
 
 #include <boost/filesystem.hpp>
 
-#include <opencv2/highgui.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include "elm/core/signal.h"
 #include "elm/core/cv/mat_utils.h"
-#include "elm/encoding/populationcode.h"
+#include "elm/core/inputname.h"
+#include "elm/encoding/populationcode_derivs/mutex_populationcode.h"
 #include "elm/io/readmnist.h"
 #include "elm/layers/layer_y.h"
 #include "sem/layers/layerfactorysem.h"

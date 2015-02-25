@@ -67,51 +67,18 @@ status("Resolve Dependencies:")
 # ----------------------------------------------------------------------------
 # NOTE: This needs to happen before OpenCV as OpenCV introduced a bug:
 # Their ts module results in multiple definitions at linking time
-#
-# DEFINES: GTEST_FOUND, GTEST_INCLUDE_DIRS, GTEST_BOTH_LIBRARIES, GTEST_LIBRARIES (libgtest), GTEST_MAIN_LIBRARIES (liggtest_main)
-# INPUTS:  GTEST_ROOT, GTEST_MSVC_SEARCH
-# For details, look for FindGTest.cmake located in the cmake folder: /usr/share/cmake28/Modules/FindGTest.cmake
 # ----------------------------------------------------------------------------
 
 if(BUILD_TESTS)
-    status("GTEST_ROOT=${GTEST_ROOT}")
-    find_package(GTest REQUIRED)
-    if(GTEST_FOUND)
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${GTEST_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES})
-    else(GTEST_FOUND)
-        if(NOT DEFINED GTEST_ROOT)
-            set(GTEST_ROOT "" CACHE PATH "Root directory for GTEST in source build. Typically ../gmock-1.7.0/gtest")
-        endif(NOT DEFINED GTEST_ROOT)
-        message(FATAL_ERROR "Failed to find GoogleTest. Double check that \"GTEST_ROOT\" is properly set")
-    endif(GTEST_FOUND)
+    include(cmake/DetectGTest.cmake)
 endif(BUILD_TESTS)
 
 # ----------------------------------------------------------------------------
 # ELM Libraries (must preceed OpenCV)
 # ----------------------------------------------------------------------------
-# ELM Layers desribe the SEM model and faciliatate experimentation
+# ELM Layers describe the model pipeline
 # ----------------------------------------------------------------------------
-# find_package ELM
-# Defines: ELM_FOUND, ELM_INCLUDE_DIRS, ELM_LIBS
-#
-# the components we're currently interested in: all
-#
-# ----------------------------------------------------------------------------
-if(DEFINED ELM_DIR)
-    status("ELM_DIR=${ELM_DIR}")
-    find_package(ELM REQUIRED PATHS ${ELM_DIR})
-    if(ELM_FOUND)
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${ELM_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${ELM_LIBS})
-        add_definitions(-D__WITH_PCL) # Useful for conditional building of PCL dependent functionality
-    else(ELM_FOUND)
-        message(SEND_ERROR "Failed to find ELM. Double check that \"ELM_DIR\" to the root build directory of SEM libraries.")
-    endif(ELM_FOUND)
-else(DEFINED ELM_DIR)
-    set(ELM_DIR "" CACHE PATH "Root directory for ELM build directory." )
-    message(FATAL_ERROR "\"ELM_DIR\" not set. Please provide the path to the root build directory of the ELM libraries.")
-endif(DEFINED ELM_DIR)
+include(cmake/DetectELM.cmake)
 
 # ----------------------------------------------------------------------------
 # OpenCV
@@ -122,23 +89,7 @@ endif(DEFINED ELM_DIR)
 # Image and Video I/O
 # Exception handling
 # ----------------------------------------------------------------------------
-# find_package OpenCV
-# Defines: OpenCV_FOUND, OpenCV_INCLUDE_DIRS, OpenCV_LIBS, OpenCV_LINK_LIBRARIES
-# ----------------------------------------------------------------------------
-# Force the user to tell us which OpenCV they want (otherwise find_package can find the wrong one, cache it and changes to OpenCV_DIR are ignored)
-
-if(DEFINED OpenCV_DIR)
-    find_package(OpenCV REQUIRED core highgui imgproc PATHS ${OpenCV_DIR})
-    if(OpenCV_FOUND)
-        list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS})
-        list(APPEND ${ROOT_PROJECT}_LIBS ${OpenCV_LIBS})
-    else(OpenCV_FOUND)
-        message(SEND_ERROR "Failed to find OpenCV. Double check that \"OpenCV_DIR\" to the root build directory of OpenCV.")
-    endif(OpenCV_FOUND)
-else(DEFINED OpenCV_DIR)
-    set(OpenCV_DIR "" CACHE PATH "Root directory for OpenCV build directory." )
-    message(FATAL_ERROR "\"OpenCV_DIR\" not set. Please explicitly provide the path to the root build directory of OpenCV.")
-endif(DEFINED OpenCV_DIR)
+include(cmake/DetectOpenCV.cmake)
 
 # ----------------------------------------------------------------------------
 # Boost
@@ -147,39 +98,20 @@ endif(DEFINED OpenCV_DIR)
 #
 # File system operations
 # serialization
+# graph representation
 #
 # platform independence
 #
 # If a feature does appear in STL, check it out and migrate over.
 # ----------------------------------------------------------------------------
-#
-# find_package Boost
-# Defines: Boost_FOUND, Boost_LIBRARIES,...
-# ----------------------------------------------------------------------------
-# Force the user to tell us which OpenCV they want (otherwise find_package can find the wrong one, cache it and changes to OpenCV_DIR are ignored)
-
-set(BOOST_MIN_VERSION "1.46.1" CACHE STRING "Minimum version of boost to link against (e.g. C:/BOOST_1_56_0 is 1.56.0")
-
-# Don't forget to include 'system'
-set(BOOST_COMPONENTS system filesystem serialization)
-status("")
-find_package(Boost ${BOOST_MIN_VERSION} REQUIRED COMPONENTS ${BOOST_COMPONENTS})
-if(Boost_FOUND)
-    list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
-    list(APPEND ${ROOT_PROJECT}_LIBS ${Boost_LIBRARIES})
-else(Boost_FOUND)
-    if(NOT DEFINED BOOST_ROOT)
-        set(BOOST_ROOT "" CACHE PATH "Boost installation prefix.")
-    endif(NOT DEFINED BOOST_ROOT)
-    message(FATAL_ERROR "Failed to find Boost (or missing components). Check that \"BOOST_ROOT\" is properly set")
-endif(Boost_FOUND)
+include(cmake/DetectBoost.cmake)
 
 # Required dependencies covered
 # ----------------------------------------------------------------------------
 # Locate Optional dependencies: None yet
 # ----------------------------------------------------------------------------
 
-status("Resolve Opt. Dependencies:")
+#status("Resolve Opt. Dependencies:")
 
 # Dependencies covered
 # ----------------------------------------------------------------------------
