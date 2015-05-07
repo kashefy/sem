@@ -44,7 +44,7 @@ void SimulationSEM::Learn()
 
     Signal sig;
 
-    while(!r.IS_EOF()) {
+    while(!r.Is_EOF()) {
 
         sig.Clear();
 
@@ -67,7 +67,7 @@ void SimulationSEM::Learn()
             }
 
             z_->Activate(sig);
-            static_pointer_cast<base_LearningLayer>(z_)->Learn();
+            dynamic_pointer_cast<base_LearningLayer>(z_)->Learn();
         }
 
         z_->Clear(); // clear before moving on to the next stimulus
@@ -83,7 +83,7 @@ void SimulationSEM::Test()
 
     Signal sig;
 
-    while(!r.IS_EOF()) {
+    while(!r.Is_EOF()) {
 
         sig.Clear();
 
