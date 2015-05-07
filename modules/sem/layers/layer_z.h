@@ -41,8 +41,6 @@ public:
 
     LayerZ();
 
-    LayerZ(const elm::LayerConfig& config);
-
     void Clear();
 
     void Reset(const elm::LayerConfig &config);
@@ -60,8 +58,7 @@ public:
      */
     void Learn();
 
-    void Learn(const cv::Mat1f& features, const cv::Mat1f &labels) = 0;
-
+    void Learn(const cv::Mat1f& features, const cv::Mat1f &labels);
 
     void Response(elm::Signal &signal);
 

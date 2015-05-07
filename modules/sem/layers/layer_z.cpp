@@ -38,14 +38,6 @@ LayerZ::LayerZ()
 {
 }
 
-LayerZ::LayerZ(const LayerConfig &config)
-    : base_LearningLayer(config),
-      wta_(DEFAULT_WTA_FREQ, DEFAULT_DELTA_T) // will get overriden anyway
-{
-    Reset(config);
-    IONames(config);
-}
-
 void LayerZ::Clear()
 {
     for(VecLPtr::iterator itr=z_.begin(); itr != z_.end(); ++itr) {
