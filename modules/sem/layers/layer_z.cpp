@@ -38,14 +38,6 @@ LayerZ::LayerZ()
 {
 }
 
-LayerZ::LayerZ(const LayerConfig &config)
-    : base_LearningLayer(config),
-      wta_(DEFAULT_WTA_FREQ, DEFAULT_DELTA_T) // will get overriden anyway
-{
-    Reset(config);
-    IONames(config);
-}
-
 void LayerZ::Clear()
 {
     for(VecLPtr::iterator itr=z_.begin(); itr != z_.end(); ++itr) {
@@ -145,6 +137,19 @@ void LayerZ::Learn()
     for(VecLPtr::iterator itr=z_.begin(); itr != z_.end(); ++itr) {
 
         (*itr)->Learn(spikes_out_.col(i++));
+    }
+}
+
+void LayerZ::Learn(const cv::Mat1f &features, const cv::Mat1f &labels)
+{
+    for(int r=0; r<features.rows; r++) {
+
+        Signal s;
+        s.Append(name_input_spikes_, features.row(r));
+
+        Activate(s);
+        Response(s);
+        Learn();
     }
 }
 

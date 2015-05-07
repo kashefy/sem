@@ -44,13 +44,13 @@ void SimulationHSEM::Learn()
 
     Signal sig;
 
-    while(!r.IS_EOF()) {
+    while(!r.Is_EOF()) {
 
         sig.Clear();
 
         Mat img = r.Next();
 
-        sig.Append(NAME_STIMULUS, img);
+        sig.Append(NAME_STIMULUS, static_cast<Mat1f>(img));
 
         pop_code_->Activate(sig);
         pop_code_->Response(sig);
@@ -67,7 +67,7 @@ void SimulationHSEM::Learn()
             }
 
             z_->Activate(sig);
-            static_pointer_cast<base_LearningLayer>(z_)->Learn();
+            dynamic_pointer_cast<base_LearningLayer>(z_)->Learn();
         }
 
         z_->Clear(); // clear before moving on to the next stimulus
@@ -83,13 +83,13 @@ void SimulationHSEM::Test()
 
     Signal sig;
 
-    while(!r.IS_EOF()) {
+    while(!r.Is_EOF()) {
 
         sig.Clear();
 
         Mat img = r.Next();
         //cv::imshow("i", img);
-        sig.Append(NAME_STIMULUS, img);
+        sig.Append(NAME_STIMULUS, static_cast<Mat1f>(img));
 
         pop_code_->Activate(sig);
         pop_code_->Response(sig);

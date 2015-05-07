@@ -41,8 +41,6 @@ public:
 
     LayerZ();
 
-    LayerZ(const elm::LayerConfig& config);
-
     void Clear();
 
     void Reset(const elm::LayerConfig &config);
@@ -59,6 +57,8 @@ public:
      * @brief Apply STDP for learning from most recent stimuli
      */
     void Learn();
+
+    void Learn(const cv::Mat1f& features, const cv::Mat1f &labels);
 
     void Response(elm::Signal &signal);
 

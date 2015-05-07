@@ -5,6 +5,7 @@
 
 using namespace std;
 using namespace cv;
+using namespace elm;
 
 WTAPoisson::WTAPoisson(float max_frequency, float delta_t_msec)
     : base_WTA(delta_t_msec),
