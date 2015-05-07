@@ -60,6 +60,9 @@ public:
      */
     void Learn();
 
+    void Learn(const cv::Mat1f& features, const cv::Mat1f &labels) = 0;
+
+
     void Response(elm::Signal &signal);
 
 protected:

@@ -148,6 +148,19 @@ void LayerZ::Learn()
     }
 }
 
+void LayerZ::Learn(const cv::Mat1f &features, const cv::Mat1f &labels)
+{
+    for(int r=0; r<features.rows; r++) {
+
+        Signal s;
+        s.Append(name_input_spikes_, features.row(r));
+
+        Activate(s);
+        Response(s);
+        Learn();
+    }
+}
+
 void LayerZ::Response(Signal &signal)
 {
     signal.Append(name_output_spikes_, spikes_out_);
