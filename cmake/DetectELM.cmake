@@ -17,6 +17,7 @@ if(DEFINED ELM_DIR)
     
         list(APPEND ${ROOT_PROJECT}_INCLUDE_DIRS ${ELM_INCLUDE_DIRS})
         list(APPEND ${ROOT_PROJECT}_LIBS ${ELM_LIBS})
+        list(APPEND ${ROOT_PROJECT}_LIBS ${ELM_DEPS_LIBS})
         
     else(ELM_FOUND)
         
