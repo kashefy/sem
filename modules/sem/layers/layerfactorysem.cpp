@@ -13,6 +13,8 @@
 #include "elm/encoding/populationcode_derivs/mutex_populationcode.h"
 #include "elm/layers/saliencyitti.h"
 #include "elm/layers/weightedsum.h"
+#include "elm/io/readmnistimages.h"
+#include "elm/io/readmnistlabels.h"
 #include "sem/layers/layer_z.h"
 
 using boost::assign::map_list_of;
@@ -33,6 +35,8 @@ LayerRegistry g_layerRegistry = map_list_of
         LAYER_REGISTRY_PAIR( LayerY )
         LAYER_REGISTRY_PAIR( LayerZ )
         LAYER_REGISTRY_PAIR( MutexPopulationCode )
+        LAYER_REGISTRY_PAIR( ReadMNISTImages )
+        LAYER_REGISTRY_PAIR( ReadMNISTLabels )
         LAYER_REGISTRY_PAIR( SaliencyItti )
         LAYER_REGISTRY_PAIR( WeightedSum )
         ; ///< <-- add new layer to registry here
