@@ -4,8 +4,9 @@
 #include <memory>
 #include <string>
 
+#include "elm/core/typedefs_fwd.h"
+
 #include "elm/core/base_Layer.h"
-#include "elm/core/exception.h"
 
 /**
  * @brief class for implementing layer related factory methods
@@ -25,7 +26,7 @@ public:
      * @return pointer to layer instance
      * @throws ExceptionTypeError on unrecognized layer type
      */
-    static std::shared_ptr<elm::base_Layer> CreateShared(const LayerType &type);
+    static elm::LayerShared CreateShared(const LayerType &type);
 
     /**
      * @brief Create smart pointer to an instantiated layer
@@ -35,9 +36,9 @@ public:
      * @return pointer to layer instance
      * @throws ExceptionTypeError on unrecognized layer type
      */
-    static std::shared_ptr<elm::base_Layer> CreateShared(const LayerType &type,
-                                                         const elm::LayerConfig &config,
-                                                         const elm::LayerIONames &io);
+    static elm::LayerShared CreateShared(const LayerType &type,
+                                         const elm::LayerConfig &config,
+                                         const elm::LayerIONames &io);
 };
 
 #endif // SEM_LAYERS_LAYERFACTORYSEM_H_

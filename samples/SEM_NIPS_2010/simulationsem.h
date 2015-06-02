@@ -34,13 +34,13 @@ protected:
      * @brief Initialize layer for population coding
      * @return refernce to popuation code layer instance
      */
-    std::shared_ptr<elm::base_Layer> InitPopulationCode() const;
+    elm::LayerShared InitPopulationCode() const;
 
     /**
      * @brief Initialize layer of spiking neurons
      * @return refernce to layer instance
      */
-    std::shared_ptr<elm::base_Layer> InitLayerY() const;
+    elm::LayerShared InitLayerY() const;
 
     /**
      * @brief Initialize layer of spiking learners
@@ -48,7 +48,7 @@ protected:
      * @param length of spiking history
      * @return reference to layer instance
      */
-    std::shared_ptr<elm::base_Layer> InitLearners(int nb_features, int history_length) const;
+    elm::LayerShared InitLearners(int nb_features, int history_length) const;
 
     void VisualizeOnOffWeights(const cv::Mat1f &weights);
 
