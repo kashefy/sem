@@ -37,9 +37,8 @@ void SimulationSEM::Learn()
 {
     ReadMNISTImages r;
     //bfs::path p("C:\\Users\\woodstock\\dev\\data\\MNIST\\train-images.idx3-ubyte");
-    //bfs::path p("C:\\Users\\woodstock\\dev\\data\\MNIST\\t10k-images.idx3-ubyte");
     //bfs::path p("/media/206CDC456CDC177E/Users/woodstock/dev/data/MNIST/train-images.idx3-ubyte");
-    bfs::path p("/media/206CDC456CDC177E/Users/woodstock/dev/data/MNIST/t10k-images.idx3-ubyte");
+    bfs::path p("/media/win/Users/woodstock/dev/data/MNIST/t10k-images.idx3-ubyte");
     r.ReadHeader(p.string().c_str());
 
     Signal sig;
@@ -78,7 +77,7 @@ void SimulationSEM::Test()
 {
     ReadMNISTImages r;
     //bfs::path p("C:\\Users\\woodstock\\dev\\data\\MNIST\\t10k-images.idx3-ubyte");
-    bfs::path p("/media/206CDC456CDC177E/Users/woodstock/dev/data/MNIST/t10k-images.idx3-ubyte");
+    bfs::path p("/media/win/Users/woodstock/dev/data/MNIST/t10k-images.idx3-ubyte");
     r.ReadHeader(p.string().c_str());
 
     Signal sig;
@@ -108,7 +107,7 @@ void SimulationSEM::Eval()
     SimulationSEM::VisualizeOnOffWeights(signal.MostRecentMat1f(NAME_WEIGHTS));
 }
 
-shared_ptr<base_Layer> SimulationSEM::InitPopulationCode() const
+LayerShared SimulationSEM::InitPopulationCode() const
 {
     LayerConfig cfg;
     cfg.Input(MutexPopulationCode::KEY_INPUT_STIMULUS, NAME_STIMULUS);
@@ -117,7 +116,7 @@ shared_ptr<base_Layer> SimulationSEM::InitPopulationCode() const
     return LayerFactorySEM::CreateShared("MutexPopulationCode", cfg, cfg);
 }
 
-shared_ptr<base_Layer> SimulationSEM::InitLayerY() const
+LayerShared SimulationSEM::InitLayerY() const
 {
     PTree params;
     params.put(LayerY::PARAM_FREQ, 1000.f);
@@ -133,7 +132,7 @@ shared_ptr<base_Layer> SimulationSEM::InitLayerY() const
     return LayerFactorySEM::CreateShared("LayerY", cfg, io);
 }
 
-shared_ptr<base_Layer> SimulationSEM::InitLearners(int nb_features, int history_length) const
+LayerShared SimulationSEM::InitLearners(int nb_features, int history_length) const
 {
     PTree params;
     params.put(LayerZ::PARAM_NB_AFFERENTS, nb_features);
