@@ -1,5 +1,5 @@
-#ifndef SEM_LAYERS_LAYERFACTORYSEM_H_
-#define SEM_LAYERS_LAYERFACTORYSEM_H_
+#ifndef _SEM_LAYERS_LAYERFACTORYSEM_H_
+#define _SEM_LAYERS_LAYERFACTORYSEM_H_
 
 #include <memory>
 #include <string>
@@ -41,4 +41,4 @@ public:
                                          const elm::LayerIONames &io);
 };
 
-#endif // SEM_LAYERS_LAYERFACTORYSEM_H_
+#endif // _SEM_LAYERS_LAYERFACTORYSEM_H_

@@ -53,9 +53,9 @@ protected:
     void VisualizeOnOffWeights(const cv::Mat1f &weights);
 
     // members
-    std::shared_ptr<elm::base_Layer> pop_code_;
-    std::shared_ptr<elm::base_Layer> y_;
-    std::shared_ptr<elm::base_Layer> z_;
+    elm::LayerShared pop_code_;
+    elm::LayerShared y_;
+    elm::LayerShared z_;
     size_t nb_learners_;   ///< no. of learners (e.g. ZNeurons)
 
 };

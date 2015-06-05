@@ -3,16 +3,15 @@
 #include <boost/assign/list_of.hpp>
 
 #include "elm/core/registor.h"
+#include "elm/layers/layerfactory.h"
 
 /** Whenever a new layer is imeplemented:
  *  1. include its header below
- *  2. Add it to the initialization of g_layerRegistry map.
+ *  2. Add it to the initialization of g_layerRegistrySEM map.
  */
-#include "elm/layers/attentionwindow.h"
 #include "elm/layers/layer_y.h"
-#include "elm/encoding/populationcode_derivs/mutex_populationcode.h"
-#include "elm/layers/saliencyitti.h"
-#include "elm/layers/weightedsum.h"
+#include "elm/io/readmnistimages.h"
+#include "elm/io/readmnistlabels.h"
 #include "sem/layers/layer_z.h"
 
 using boost::assign::map_list_of;
@@ -28,13 +27,10 @@ typedef Registor_<base_Layer>::Registry LayerRegistry;
 #define REGISTRY_PAIR(Registor, NewInstance) (#NewInstance, &Registor::DerivedInstance<NewInstance>)
 #define LAYER_REGISTRY_PAIR(NewInstance) REGISTRY_PAIR(LayerRegistor, NewInstance)
 
-LayerRegistry g_layerRegistry = map_list_of
-        LAYER_REGISTRY_PAIR( AttentionWindow )
-        LAYER_REGISTRY_PAIR( LayerY )
+LayerRegistry g_layerRegistrySEM = map_list_of
         LAYER_REGISTRY_PAIR( LayerZ )
-        LAYER_REGISTRY_PAIR( MutexPopulationCode )
-        LAYER_REGISTRY_PAIR( SaliencyItti )
-        LAYER_REGISTRY_PAIR( WeightedSum )
+        LAYER_REGISTRY_PAIR( ReadMNISTImages )
+        LAYER_REGISTRY_PAIR( ReadMNISTLabels )
         ; ///< <-- add new layer to registry here
 
 LayerFactorySEM::LayerFactorySEM()
@@ -43,12 +39,16 @@ LayerFactorySEM::LayerFactorySEM()
 
 LayerRegistor::RegisteredTypeSharedPtr LayerFactorySEM::CreateShared(const LayerType &type)
 {
-    return LayerRegistor::CreatePtrShared(g_layerRegistry, type);
+    if(!LayerRegistor::Find(g_layerRegistrySEM, type)) {
+
+        return LayerFactory::CreateShared(type);
+    }
+    return LayerRegistor::CreatePtrShared(g_layerRegistrySEM, type);
 }
 
 LayerRegistor::RegisteredTypeSharedPtr LayerFactorySEM::CreateShared(const LayerType &type,
-                                                                          const LayerConfig &config,
-                                                                          const LayerIONames &io)
+                                                                     const LayerConfig &config,
+                                                                     const LayerIONames &io)
 {
     LayerRegistor::RegisteredTypeSharedPtr ptr = LayerFactorySEM::CreateShared(type);
     ptr->Reset(config);
